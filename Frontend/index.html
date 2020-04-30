@@ -1,19 +1,41 @@
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <title>Safari</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
   </head>
   <body>
     <header>
-      <h2>AnimalGram</h2>
+      <div class="col-md-9">
+        <h2>AnimalGram</h2>
+      </div>
+      <div class="col-md-3">
+        <div id="login-header"></div>
+      </div>
     </header>
 
     <main>
 
+      <!-- LOGIN  form  -->
+<!-- <div class="login-form">
+  <form class="login-user-form">
+    <h3>Login</h3>
+    <input id="username-input" type="text" placeholder="Username">
+    <br>
+    <input class="ui button" type="submit">
+  </form>
+</div> -->
+
+
+
+
+
       <!-- new user form  -->
-      <div class="user-form">
+      <!-- <div class="user-form">
         <form class="create-user-form">
           <h3>Create New User</h3>
           <input id="username-input" type="text" placeholder="Username">
@@ -22,28 +44,45 @@
           <br>
           <input class="ui button" type="submit">
         </form>
-      </div>
+      </div> -->
 
-      <!-- LOGIN  form  -->
-      <div class="login-form">
-        <form class="login-user-form">
-          <h3>Login</h3>
-          <input id="username-input" type="text" placeholder="Username">
+      
+      <!-- main   page -->
+<div class="col-md-4">
+      <div class="left">
+        <div class="user-info"> 
+          <h2 class="username" >User Name</h2>
+          <h4 class="fullname" >Full Name</h4>
+          <p class="bio" >User Bio</p>
+        </div>
+      </div>
+      <div class="users-posts"> 
+            <!--Users Post Pictues Will Get displayed within this Div.  Will style After functions work-->
+      </div>
+</div>
+
+<div class="col-md-4">
+      <div class="middle"> 
+      <div class="post-form" id= "create-posts">
+        <form class="create-post-form">
+          <h3>Location(optional)</h3>
+          <input id="location-input" type="text" placeholder="Location...">
+          <br>
+          <input id="image-url" type="text" placeholder="Image...">
+          <br>
+          <input id="caption-input" type="textarea" placeholder="Caption...">
           <br>
           <input class="ui button" type="submit">
         </form>
       </div>
-      
-      <!-- main   page -->
-
-      <div class="left">
-        <div> </div>
-      
-      
+        <div class="post-image">
+        </div>
       </div>
-      <div class="middle"></div>
-      <div class="right"></div>
+</div>
 
+<div class="col-md-4">
+      <div class="right"></div>
+</div>
     </main>
 
     <script src="./src/index.js"></script>

@@ -1,0 +1,35 @@
+.users-posts {
+    float:  left;
+    width:  330px;
+    height: 330px;
+    /* background-size: cover; */
+}
+
+.user-post {
+    float:  left;
+    width:  100px;
+    height: 100px;
+    padding: 5px;
+    /* background-size: cover; */
+} 
+
+.middle {
+    /* float: center; */
+    /* width: 100%; */
+}
+
+.one-post-card {
+    width: 320px;
+    box-sizing:border-box;
+    border:#CCC solid 5px;
+    padding: 5px;
+    /* position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -100px; */
+}
+
+.middle-photo {
+    width:  300px;
+}
