@@ -1,4 +1,4 @@
-var loggedId = 32;
+var loggedId = 39;
 const urlUsers = "http://localhost:3000/users"
 const urlPosts =  "http://localhost:3000/posts"
 const urlFriends = "http://localhost:3000/friends"
@@ -168,7 +168,7 @@ function renderPosts(post) {
     if (parseInt(localStorage.user_id) === post.user_id) {
         // Add Split Button to Post where User is signed in.
         const deleteButton = document.createElement("button")
-        deleteButton.id = `btn-${post.id}`
+        deleteButton.id = `${post.id}`
         deleteButton.innerText = "Delete"
         deleteButton.addEventListener("click", deletePost ) 
         const editButton = document.createElement("button")
@@ -250,9 +250,8 @@ function createPost(event){
 }
 
 function deletePost(event){
-    const postId = event.target.post_id 
-    
-    fetch(`${urlPosts}/${postId}`, {
+    const postId = event.target.id
+    fetch(urlPosts + "/" + postId, {
         method: "DELETE"
     } ).then( () => {
         let nextLevel = event.target.parentElement
@@ -262,7 +261,9 @@ function deletePost(event){
 
 function editPost() {
     console.log("Edit Button Works")
-    
+
+    fetch 
+
 }
 
 function exploreUsers(friend){
