@@ -1,4 +1,4 @@
-var loggedId = 14
+var loggedId = 27;
 const urlUsers = "http://localhost:3000/users"
 const urlPosts =  "http://localhost:3000/posts"
 
@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", function(){
         console.log("you need to login")
         // loadLoginScreen();
     }
+
+    let newPostForm = document.getElementById("create-post-form")
+    newPostForm.addEventListener("submit", createPost )
     
 })
 
@@ -56,13 +59,21 @@ function logOut(){
     //needs to also switch to logged out screen
 }
 
-// Left side of the Screen 
-
+// Left side of the DOM
 function fetchUser() {
     fetch(`${urlUsers}/${loggedId}`)
     .then(resp => resp.json())
+    .then(user => {
+        localStorage["username"] = user.username,
+        localStorage["fullname"] = user.fullname,
+        localStorage["bio"] = user.bio
+        return user 
+    } )
     .then(user => renderLeftUser(user))
 }
+
+
+
 
 function renderLeftUser(user) {
     let createPost = document.getElementById("create-posts")
@@ -83,19 +94,34 @@ function renderLeftUser(user) {
         const userImageDiv = document.querySelector(".users-posts")
         const postsImages = document.createElement("img")
         postsImages.classList.add("user-post")
+        postsImages.id = post.id
         postsImages.src = post.graphic_url
         // postsImages.style.display = "10px"
         userImageDiv.append(postsImages)
-        // postsImages.addEventListener("click", imageWindow)
+        postsImages.addEventListener("click", () => handleImageWindow(event, post))
     })
     // Allow our user to view a post that they click on on the left side of the DOM
     // const viewPost = document.querySelector("view-post")
     userDiv.append(usernameh4, fullnameh2, bioP)
 }
 
+// Handles the bottom left side of the DOM to display picture in expanded form!
+function handleImageWindow(event, post) {
+    console.log("Picture Clicked")
+    const imageDiv = document.querySelector(".image-expanded")
+    const postImage = document.getElementById(`${post.id}`)
+    if (imageDiv.children.length === 0) {
+        imageDiv.appendChild(postImage.cloneNode())
+    } else {
+        // imageDiv.firstChild.remove()
+        imageDiv.innerHTML = ""
+        imageDiv.appendChild(postImage.cloneNode())
+    }
+    // imageDiv.removeChild(imageDiv.firstChild)
+        // imageDiv.appendChild(postImage.cloneNode())
+    
+}
 
-// function handleImageWindow() {
-// }
 
 // Fetching Post for the Middle of the DOM
 function fetchPosts() {
@@ -118,6 +144,7 @@ function renderPosts(post) {
     const postImg = document.createElement("img")
     postImg.className = "middle-photo"
     postImg.src = post.graphic_url
+    // debugger
     const commenth4 = document.createElement("h4")
     commenth4.className = "middle-comment"
     commenth4.innerText = "COMMENTS"
@@ -125,34 +152,38 @@ function renderPosts(post) {
     viewMoreh4.className = "middle-view-more"
     viewMoreh4.innerText = "VIEW MORE"
 
-    newPostCard.append(nameh2, locationh4, postImg, commenth4)
+    newPostCard.append(nameh2, locationh4, postImg, commenth4, viewMoreh4)
 
-    divPostImage.append(newPostCard)
+    //NOTE need to switch this to append to beginning rather than end. Should be .unshift
+    divPostImage.prepend(newPostCard)
 
 }
 
+function createPost(event){
+    event.preventDefault()
 
-
-// function createPost(){
-//     event.preventDefault()
+    let data = {
+        user_id: loggedId,
+        location: document.getElementById("location-input").value,
+        post_text: document.getElementById("caption-input").value,
+        graphic_url: document.getElementById("image-url").value,
+        user: {
+            username: localStorage.username 
+        },
+        comments: []
+    }
+    fetch(urlPosts, {
+        method: "POST",
+        headers:  {
+            "Content-Type" : "application/json"
+          },
+        body: JSON.stringify(data)
+    }).then( () => renderPosts(data))
     
-//     let data = {
-//         user_id: loggedId
-//         location: document.getElementById("location-input").value,
-//         graphic_URL: document.getElementById("graphi-url-input").value,
-//         post_text: document.getElementById("post-text-input").value
-//     }
-
-//     fetch(url, {
-//         method: "POST",
-//         headers:  {
-//             "Content-Type" : "application/json"
-//           },
-//           body: JSON.stringify(data)
-//     }).then(res => res.json())
-//     .then(newPost => {
-//         console.log("successfully created  new post!", newPost)
-//         fetcPosts(newPost)
-//     })
+    // .then(res => res.json())
+    // .then(newPost => {
+    //     console.log("successfully created  new post!", newPost)
+    //     renderPosts(newPost)
+    // })
     
-// }
+}

@@ -48,6 +48,9 @@
 
       
       <!-- main   page -->
+
+<!-- LEFT COLUMN  -->
+
 <div class="col-md-4">
       <div class="left">
         <div class="user-info"> 
@@ -58,15 +61,27 @@
       </div>
       <div class="users-posts"> 
             <!--Users Post Pictues Will Get displayed within this Div.  Will style After functions work-->
+      </div> 
+      </br>
+      </br>
+      <div class="image-expanded"> 
+      <!-- Expanded Images Go Here-->
       </div>
+
+      
+
+
 </div>
+
+
+<!-- MIDDLE COLUMN -->
 
 <div class="col-md-4">
       <div class="middle"> 
       <div class="post-form" id= "create-posts">
-        <form class="create-post-form">
-          <h3>Location(optional)</h3>
-          <input id="location-input" type="text" placeholder="Location...">
+        <form class="create-post-form" id="create-post-form" >
+          <h3>Create a new Post</h3>
+          <input id="location-input" type="text" placeholder="Location (optional)...">
           <br>
           <input id="image-url" type="text" placeholder="Image...">
           <br>
@@ -74,13 +89,24 @@
           <br>
           <input class="ui button" type="submit">
         </form>
+      <!-- Images that are Posted below the Username on the left side of the screen-->
       </div>
         <div class="post-image">
+        <!-- User Image Posts Go Here-->
         </div>
       </div>
+      <!-- Images that when clicked on are rendered to the bottom left side -->
 </div>
 
+
+<!-- THIRD COLUMN -->
+
+
 <div class="col-md-4">
+
+  <!-- PSEUDOCODE: this is where we will put the "Explore, add new friends" and "support org" section" -->
+
+  
       <div class="right"></div>
 </div>
     </main>
