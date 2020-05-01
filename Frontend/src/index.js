@@ -1,4 +1,4 @@
-var loggedId = 39;
+var loggedId = 45;
 const urlUsers = "http://localhost:3000/users"
 const urlPosts =  "http://localhost:3000/posts"
 const urlFriends = "http://localhost:3000/friends"
@@ -163,6 +163,8 @@ function renderPosts(post) {
     const locationh4 = document.createElement("h4")
     locationh4.className = "middle-location"
     locationh4.innerText = post.location
+    const captionp = document.createElement("p")
+    captionp.innerText = ` ${post.user.username}: ${post.post_text}`
 
     //adds delete button and appends to h4
     if (parseInt(localStorage.user_id) === post.user_id) {
@@ -193,7 +195,7 @@ function renderPosts(post) {
     viewMoreh4.className = "middle-view-more"
     viewMoreh4.innerText = "VIEW MORE"
 
-    newPostCard.append(nameh2, locationh4, postImg, commenth4, commentSection, viewMoreh4)
+    newPostCard.append(nameh2, locationh4, postImg, captionp, commenth4, commentSection, viewMoreh4)
 
     //NOTE need to switch this to append to beginning rather than end. Should be .unshift
     divPostImage.prepend(newPostCard)
@@ -215,7 +217,7 @@ function iterateComments(comment){
     let comments = document.querySelector(".comments-"+ `${comment.post_id}`)
     let newCmt = document.createElement("div")
     newCmt.id = comment.id 
-    
+    let commentTime = comment.created_at
     ///need to refactor to do "time ago" for date/time posted. 
     //also need to add which user left the comment 
     newCmt.innerHTML = `${comment.created_at} <br> ${comment.comment_text}`
@@ -261,8 +263,6 @@ function deletePost(event){
 
 function editPost() {
     console.log("Edit Button Works")
-
-    fetch 
 
 }
 
