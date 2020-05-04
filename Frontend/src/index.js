@@ -9,8 +9,15 @@ document.addEventListener("DOMContentLoaded", function(){
     displayHeader();
 
     if (loggedId === 0) {
-        const body = document.querySelector("body")
-        body.innerHTML = ""
+        // const body = document.querySelector("body")
+        // body.innerHTML = ""
+
+        let divBody = document.querySelector(".logged-in-home")
+        divBody.style.display = "none"
+        let divBodyLogin = document.querySelector(".logged-out-home")
+        divBodyLogin.style.display = "reset"
+         
+
     }
     else if (loggedId > 0){
         fetchUser()
@@ -26,10 +33,6 @@ document.addEventListener("DOMContentLoaded", function(){
         // loadLoginScreen();
     }
 })
-
-
-
-
 
 // function createNewUser(){
     
@@ -48,10 +51,21 @@ document.addEventListener("DOMContentLoaded", function(){
 
 function displayHeader(){
     // hides or shows logout button in header 
-    let headerNode = document.getElementById("login-header")
+    let headerNode = document.querySelector("#login-header")
+
     if(loggedId === 0){
-        headerNode.hidden = true 
+        // let loginBtn = document.createElement("button")
+        // loginBtn.innerText = "Login"
+        // // // loginBtn.addEventListener("click", login )
+        // headerNode.append(loginBtn)
+        const loginBtn = getElementById("submit-user")
+        headerNode.append(loginBtn)
+        let loginButton = document.querySelector("#login-button")
+    
     } else {
+        let divBody = document.querySelector(".logged-out-home")
+        // divBody.style.display = "none"
+
         let logoutBtn = document.createElement("button")
         logoutBtn.innerText = "Logout"
         logoutBtn.addEventListener("click", logOut )
@@ -64,19 +78,17 @@ function displayHeader(){
 // }
 
 function logOut(){
-    let divBody = document.querySelector(".logged-in-home")
-   
+    let divBody = document.querySelector("#logged-in-home")
+    let divBodyLogin = document.querySelector(".logged-out-home")
+    // let userLeft = document.querySelector(".left")
+    // userLeft.style.display = "none"
     divBody.style.display = "none"
-    renderSignIn()
-    
     loggedId = 0
     localStorage.clear()
+    // location.reload()
     //needs to also switch to logged out screen
     //needs to clear local storage 
 
-}
-function fetchAllUsers(){
-    
 }
 
 // Left side of the DOM
@@ -137,10 +149,7 @@ function renderLeftUser(user) {
     // const viewPost = document.querySelector("view-post")
     userDiv.append(usernameh4, fullnameh2, bioP)
     
-
-    
 }
-
 
 // Handles the bottom left side of the DOM to display picture in expanded form!
 function handleImageWindow(event, post) {
@@ -149,6 +158,8 @@ function handleImageWindow(event, post) {
     const postImage = document.getElementById(`${post.id}`)
     if (imageDiv.children.length === 0) {
         imageDiv.appendChild(postImage.cloneNode())
+        imageDiv.width = "150px"
+        imageDiv.height = "150px"
     } else {
         // imageDiv.firstChild.remove()
         imageDiv.innerHTML = ""
@@ -412,7 +423,7 @@ function exploreUsers(friend){
     let followedMap = JSON.parse(localStorage["followed"]).map(follow => follow.follow_id)
 
     let explore = followers.filter(follower => !followedMap.includes(follower.follower_id))
-    
+    // debugger
     
     // let exploreOne = explore.sample()
     console.log(explore)

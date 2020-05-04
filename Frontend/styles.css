@@ -36,12 +36,12 @@
     width:  300px;
 }
 
-
-
-
-
-
-
+body {
+  background-image: url('https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Colorful-Geometric-Simple-Background-Image.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
 
 
 

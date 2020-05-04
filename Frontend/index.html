@@ -10,14 +10,16 @@
   </head>
   <body>
     <header>
-
+    
       <div class="header head-bar">
+        <div class="row">
         <div class="col-md-9">
           <h2>AnimalGram</h2>
         </div>
         <div class="col-md-3">
           <div id="login-header"></div>
         </div>
+      </div>
 
     </div>
 
@@ -55,50 +57,52 @@
       <!-- main   page -->
 
       <!-- LOGIN FORM -->
-<div class="logged-out-home" type="hidden">
+
+<div class="row" id="logged-out-home">
   <div class="col-md-4"></div>
   <div class="col-md-4">
 
-<h2>AnimalGram Login</h2>
 
-<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+    <button id="login-button" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
 
-<div id="id01" class="modal">
-  
-  <form class="modal-content animate">
-    <!-- <div class="imgcontainer">
-      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <img src="img_avatar2.png" alt="Avatar" class="avatar">
-    </div> -->
+    <div id="id01" class="modal">
+      
+      <form id="form-id" class="modal-content animate">
+        <!-- <div class="imgcontainer">
+          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+          <img src="img_avatar2.png" alt="Avatar" class="avatar">
+        </div> -->
 
-    <div class="container">
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
+        <div class="container">
+          <label for="uname"><b>Username</b></label>
+          <input id="user-input" type="text" placeholder="Enter Username" name="uname" required>
 
-      <!-- <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required> -->
-        
-      <button type="submit">Login</button>
-      <!-- <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label> -->
+          <!-- <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="psw" required> -->
+            
+          <button id="submit-user" type="submit">Login</button>
+          <!-- <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+          </label> -->
+        </div>
+
+        <!-- <div class="container" style="background-color:#f1f1f1">
+          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+          <span class="psw">Forgot <a href="#">password?</a></span>
+        </div> -->
+      </form>
     </div>
-
-    <!-- <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-      <span class="psw">Forgot <a href="#">password?</a></span>
-    </div> -->
-  </form>
-</div>
     
   </div>
   <div class="col-md-4"></div>
-</div>
+  </div>
 
 
-<div class="logged-in-home">
+
+
 <!-- LEFT COLUMN  -->
 
+<div class="row" id="logged-in-home">
 <div class="col-md-4">
       <div class="left">
         <div class="user-info"> 
@@ -155,19 +159,25 @@
 
 
   <div class="col-md-4">
-      <div class="right"></div>
-    <!-- PSEUDOCODE: this is where we will put the "Explore, add new friends" and "support org" section" -->
+      <div class="right">
+        <h2>Explore</h2>
 
+        <h2>Support</h2>
+      </div>
   </div>
+<!-- end of third COLUMN -->
+<!-- closes row --> 
+</div>   
+<!-- closes log in div  -->
 
-</div>
+
 
 
 
     </main>
 
-    <script src="./src/index.js"></script>
     <script src="./src/login.js"></script>
+    <script src="./src/index.js"></script>
 </body>
 
 </html>
