@@ -54,6 +54,49 @@
       
       <!-- main   page -->
 
+      <!-- LOGIN FORM -->
+<div class="logged-out-home" type="hidden">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+
+<h2>AnimalGram Login</h2>
+
+<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+
+<div id="id01" class="modal">
+  
+  <form class="modal-content animate">
+    <!-- <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img src="img_avatar2.png" alt="Avatar" class="avatar">
+    </div> -->
+
+    <div class="container">
+      <label for="uname"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+
+      <!-- <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required> -->
+        
+      <button type="submit">Login</button>
+      <!-- <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label> -->
+    </div>
+
+    <!-- <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+      <span class="psw">Forgot <a href="#">password?</a></span>
+    </div> -->
+  </form>
+</div>
+    
+  </div>
+  <div class="col-md-4"></div>
+</div>
+
+
+<div class="logged-in-home">
 <!-- LEFT COLUMN  -->
 
 <div class="col-md-4">
@@ -90,11 +133,11 @@
       <div class="post-form" id= "create-posts">
         <form class="create-post-form" id="create-post-form" >
           <h3>Create a new Post</h3>
-          <input id="location-input" type="text" placeholder="Location (optional)...">
+          <input id="location-input" type="text" placeholder="Location (optional)..." required>
           <br>
-          <input id="image-url" type="text" placeholder="Image...">
+          <input id="image-url" type="text" placeholder="Image..." required>
           <br>
-          <input id="caption-input" type="textarea" placeholder="Caption...">
+          <input id="caption-input" type="textarea" placeholder="Caption..." required>
           <br>
           <input class="ui button" type="submit">
         </form>
@@ -111,14 +154,20 @@
 <!-- THIRD COLUMN -->
 
 
-<div class="col-md-4">
-    <div class="right"></div>
-  <!-- PSEUDOCODE: this is where we will put the "Explore, add new friends" and "support org" section" -->
+  <div class="col-md-4">
+      <div class="right"></div>
+    <!-- PSEUDOCODE: this is where we will put the "Explore, add new friends" and "support org" section" -->
+
+  </div>
 
 </div>
+
+
+
     </main>
 
     <script src="./src/index.js"></script>
+    <script src="./src/login.js"></script>
 </body>
 
 </html>
