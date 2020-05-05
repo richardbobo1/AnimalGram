@@ -3,6 +3,7 @@ const urlUsers = "http://localhost:3000/users"
 const urlPosts =  "http://localhost:3000/posts"
 const urlFriends = "http://localhost:3000/friends"
 const urlComments = "http://localhost:3000/comments"
+const urlOrgs = "http://localhost:3000/organizations"
 
 document.addEventListener("DOMContentLoaded", function(){
     loggedId = localStorage.id;
@@ -23,7 +24,8 @@ document.addEventListener("DOMContentLoaded", function(){
         fetchUser()
         fetchPosts()
         // fetchFriends()
-        exploreUsers()
+        fetchSupportOrg()
+        fetchUserForExplore()
 
         let newPostForm = document.getElementById("create-post-form")
         newPostForm.addEventListener("submit", createPost )
@@ -157,9 +159,9 @@ function handleImageWindow(event, post) {
     const imageDiv = document.querySelector(".image-expanded")
     const postImage = document.getElementById(`${post.id}`)
     if (imageDiv.children.length === 0) {
+        postImage.width = "300px"
+        postImage.height = "300px"
         imageDiv.appendChild(postImage.cloneNode())
-        imageDiv.width = "150px"
-        imageDiv.height = "150px"
     } else {
         // imageDiv.firstChild.remove()
         imageDiv.innerHTML = ""
@@ -417,16 +419,80 @@ function editPost() {
 
 }
 
-function exploreUsers(friend){
-    // debugger
-    let followers = JSON.parse(localStorage.followers)
-    let followedMap = JSON.parse(localStorage["followed"]).map(follow => follow.follow_id)
+function fetchUserForExplore() {
+    fetch(`${urlUsers}/?_limit=3`)
+    .then(resp => resp.json())
+    .then(users => users.forEach(user => {
+        // debugger
+        exploreUsers(user)
+    }))
+}
 
-    let explore = followers.filter(follower => !followedMap.includes(follower.follower_id))
-    // debugger
+var exploreArray = []
+function exploreUsers(user){
+    // let followers = JSON.parse(localStorage.followers)
+    // let followedMap = JSON.parse(localStorage["followed"]).map(follow => follow.follow_id)
+
+    // let explore = followers.filter(follower => !followedMap.includes(follower.follower_id))
     
     // let exploreOne = explore.sample()
-    console.log(explore)
-    
-    
+    // console.log(explore)
+
+    //Target the unorder list to plug a list of names into the list.
+    //The list items will be usernames of people who have accounts on our application
+    //The usernames will come from the fetch of all the users and will then be rendered to the screen
+    //There will be a total of 3 users who appear on the screen at a time.
+    //Each User will have a follow button appended to there list item as well.
+
+    const ulList = document.querySelector(".list-of-users")
+    const followButton = document.createElement("button")
+    followButton.innerText = "FOLLOW"
+    const listItem = document.createElement("li")
+    listItem.innerText = user.username
+    // console.log(exploreArray.sort())
+    ulList.append(listItem, followButton)
+    if (listItem.innerText === localStorage.username) {
+            listItem.remove()
+            followButton.remove()
+        } 
+    // else if (ulList.children <= 2) {
+    //     listItem.remove()
+    //     followButton.remove()
+    // }
+}
+
+function fetchSupportOrg(){
+    //fetches a random org to promote support for
+    fetch(urlOrgs)
+    .then(resp => resp.json())
+    .then(orgs => {
+        var randomValue = orgs[Math.floor(Math.random() * orgs.length)];
+        renderSupportOrgX(randomValue)
+    }
+    )
+}
+
+function renderSupportOrgX(org){
+
+    //renders the support org details to the right side of page
+    //includes image, org name, website, and description
+    let supportSection = document.querySelector(".support")
+
+    let supportImage = document.createElement("img")
+    supportImage.src = org.image
+    supportImage.className = "support-image"
+
+    let supportTitle = document.createElement("h4")
+    supportTitle.innerText = org.name 
+    let webLink = document.createElement("div")
+    webLink.className = "support-description"
+    webLink.innerText = org.website 
+  
+    let orgDescription = document.createElement("div")
+    orgDescription.innerText = org.description
+
+    supportSection.append(supportImage, supportTitle, webLink, orgDescription)
+
+
+   
 }

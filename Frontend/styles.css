@@ -43,6 +43,13 @@ body {
   background-size: cover;
 }
 
+.support-image {
+    width:  325px;
+}
+
+.support-description {
+    font-style: italic;
+}
 
 
 
