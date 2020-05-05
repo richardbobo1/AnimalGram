@@ -1,9 +1,12 @@
 var loggedId = 0
+let posts_page = 1;
+
 const urlUsers = "http://localhost:3000/users"
 const urlPosts =  "http://localhost:3000/posts"
 const urlFriends = "http://localhost:3000/friends"
 const urlComments = "http://localhost:3000/comments"
 const urlOrgs = "http://localhost:3000/organizations"
+const urlLikes = "http://localhost:3000/likes"
 
 document.addEventListener("DOMContentLoaded", function(){
     loggedId = localStorage.id;
@@ -18,14 +21,20 @@ document.addEventListener("DOMContentLoaded", function(){
         let divBodyLogin = document.querySelector(".logged-out-home")
         divBodyLogin.style.display = "reset"
          
-
     }
     else if (loggedId > 0){
+        
         fetchUser()
+        renderNewPostForm()
         fetchPosts()
+        renderLoadMoreButton()
         // fetchFriends()
         fetchSupportOrg()
         fetchUserForExplore()
+
+        //targets load more button, calls a function to load more
+        const loadMore = document.getElementById('load-more-button')
+        loadMore.onclick= nextPage;
 
         let newPostForm = document.getElementById("create-post-form")
         newPostForm.addEventListener("submit", createPost )
@@ -35,6 +44,26 @@ document.addEventListener("DOMContentLoaded", function(){
         // loadLoginScreen();
     }
 })
+
+function homePage() {
+    // const homeAnchor = document.querySelector("home-page"")
+    location.reload()
+}
+
+function aboutPage() {
+    console.log("Hit button")
+    const aboutAnchor = document.querySelector("about-page")
+    const bodyHtml = document.querySelector("body")
+    const loggedInHome = document.querySelector("#logged-in-home")
+    loggedInHome.innerHTML = ""
+    const loggedOutHome = document.querySelector("#logged-out-home")
+    loggedOutHome.innerHTML = ""
+    // debugger
+    const aboutDiv = document.querySelector(".about")   
+    const welcome = document.createElement("h2")
+    welcome.innerText = "WELCOME TO ANIMALGRAM!  WE'RE GLAD TO SEE YOU USING OUR APP!!"
+    aboutDiv.append(welcome)
+}
 
 // function createNewUser(){
     
@@ -54,25 +83,40 @@ document.addEventListener("DOMContentLoaded", function(){
 function displayHeader(){
     // hides or shows logout button in header 
     let headerNode = document.querySelector("#login-header")
-
-    if(loggedId === 0){
-        // let loginBtn = document.createElement("button")
-        // loginBtn.innerText = "Login"
-        // // // loginBtn.addEventListener("click", login )
-        // headerNode.append(loginBtn)
-        const loginBtn = getElementById("submit-user")
-        headerNode.append(loginBtn)
-        let loginButton = document.querySelector("#login-button")
-    
-    } else {
-        let divBody = document.querySelector(".logged-out-home")
-        // divBody.style.display = "none"
-
-        let logoutBtn = document.createElement("button")
-        logoutBtn.innerText = "Logout"
-        logoutBtn.addEventListener("click", logOut )
-        headerNode.append(logoutBtn)
+    const navList = document.querySelector(".nav-bar-list")
+    // Render Login
+    if (loggedId === undefined) {
+        const navLiLogin = document.createElement("li")
+        const loginAnchor = document.createElement("a")
+        loginAnchor.innerText = "Login"
+        loginAnchor.class = "login-button"
+        loginAnchor.style = "width:auto;"
+        loginAnchor.href = "#"
+        loginAnchor.onclick = loginNavOpen
+        navLiLogin.append(loginAnchor)
+        navList.append(navLiLogin) }
+    // Render Logout
+    else if (loggedId > 0) {
+        const navLiLogout = document.createElement("li")
+        const logoutAnchor = document.createElement("a")
+        logoutAnchor.innerText = "Logout"
+        logoutAnchor.href = "#"
+        logoutAnchor.addEventListener("click", logOut)
+        navLiLogout.append(logoutAnchor)
+        navList.append(navLiLogout)
+        logoutAnchor.addEventListener("click", reloadPage)
+        logoutAnchor.addEventListener("click", logoutAlert)
     }
+        // debugger
+        // let divBody = document.querySelector(".logged-out-home")
+        // let logoutBtn = document.createElement("button")
+        // logoutBtn.innerText = "Logout"
+        // logoutBtn.addEventListener("click", logOut )
+        // headerNode.append(logoutBtn)
+    }
+
+function loginNavOpen(){
+    document.getElementById('id01').style.display='block'
 }
 
 // function load_home() {
@@ -91,6 +135,14 @@ function logOut(){
     //needs to also switch to logged out screen
     //needs to clear local storage 
 
+}
+
+function reloadPage() {
+    location.reload()
+}
+
+function logoutAlert() {
+    alert("We Hope To See You Again!")
 }
 
 // Left side of the DOM
@@ -118,11 +170,14 @@ function renderLeftUser(user) {
         createPost.hidden = false
     }
     const userDiv = document.querySelector(".user-info")
-    const usernameh4 = document.querySelector(".username")
-    usernameh4.innerText = user.username
-    const fullnameh2 = document.querySelector(".fullname")
-    fullnameh2.innerText = user.fullname
-    const bioP = document.querySelector("p")
+    const usernameh2 = document.createElement("h2")
+    usernameh2.className = "username"
+    usernameh2.innerText = user.username
+    const fullnameh4 = document.createElement("h4")
+    fullnameh4.className = "fullname"
+    fullnameh4.innerText = user.fullname
+    const bioP = document.createElement("p")
+    bioP.className = "bio"
     bioP.innerText = user.bio
     
     const followDiv = document.querySelector(".follower-following-count")
@@ -136,7 +191,7 @@ function renderLeftUser(user) {
     followingNumP.innerText = user.followed.length
     followDiv.append(followersh4, followersNumP, followingh4, followingNumP)
 
-    const postsImages = document.querySelector("posts-pictures")
+    // const postsImages = document.querySelector("posts-pictures")
     user.posts.forEach(post => {
         const userImageDiv = document.querySelector(".users-posts")
         const postsImages = document.createElement("img")
@@ -149,7 +204,7 @@ function renderLeftUser(user) {
     })
     // Allow our user to view a post that they click on on the left side of the DOM
     // const viewPost = document.querySelector("view-post")
-    userDiv.append(usernameh4, fullnameh2, bioP)
+    userDiv.append(usernameh2, fullnameh4, bioP)
     
 }
 
@@ -158,14 +213,20 @@ function handleImageWindow(event, post) {
     console.log("Picture Clicked")
     const imageDiv = document.querySelector(".image-expanded")
     const postImage = document.getElementById(`${post.id}`)
+    postImage.classList.add("expand")
     if (imageDiv.children.length === 0) {
-        postImage.width = "300px"
-        postImage.height = "300px"
-        imageDiv.appendChild(postImage.cloneNode())
+        const newImage = document.createElement("img")
+        newImage.src = postImage.src
+        newImage.classList = "clone"
+        // debugger
+        imageDiv.appendChild(newImage)
     } else {
         // imageDiv.firstChild.remove()
+        const newImage = document.createElement("img")
+        newImage.src = postImage.src
+        newImage.className = "clone"
         imageDiv.innerHTML = ""
-        imageDiv.appendChild(postImage.cloneNode())
+        imageDiv.appendChild(newImage)
     }
     // imageDiv.removeChild(imageDiv.firstChild)
         // imageDiv.appendChild(postImage.cloneNode())
@@ -175,7 +236,8 @@ function handleImageWindow(event, post) {
 
 // Fetching Post for the Middle of the DOM
 function fetchPosts() {
-    fetch(urlPosts)
+
+    fetch(`http://localhost:3000/posts/?_limit=5&_page=` + posts_page )
     .then(resp => resp.json())
     .then(posts => posts.forEach(post => renderPosts(post)))
 }
@@ -211,6 +273,26 @@ function renderPosts(post) {
     const postImg = document.createElement("img")
     postImg.className = "middle-photo"
     postImg.src = post.graphic_url
+
+    //current # of likes 
+    let z = post.likes.length 
+    let likeCount = document.createElement("div")
+    likeCount.className = "like-count"
+    likeCount.id = z;
+    likeCount.innerText =  `${z} likes`
+
+    //like button 
+    let likeBtn = document.createElement("button")
+    likeBtn.class= "like-button"
+    likeBtn.id = post.id 
+    likeBtn.innerText = "<3"
+    likeBtn.addEventListener("click", (event) => {
+        console.log(event.target.dataset);
+        likeFunction(event)
+    })
+
+
+    //create comments section header
     const commenth4 = document.createElement("h4")
     commenth4.className = "middle-comment"
     commenth4.innerText = "COMMENTS"
@@ -220,20 +302,29 @@ function renderPosts(post) {
     commentSection.className = `comments-${post.id}`
     // newPostCard.append(commentSection)
 
-    //need to refactor so this only appears if there are more than 3 or so comments 
-    const viewMoreh4 = document.createElement("h4")
-    viewMoreh4.className = "middle-view-more"
-    viewMoreh4.innerText = "VIEW MORE"
     
     //leave a comment link 
-    const leaveAComment = document.createElement("p")
-    leaveAComment.className = "leave-a-comment"
+    const leaveAComment = document.createElement("span")
+    leaveAComment.id = "leave-a-comment"
+    leaveAComment.className = "border-top"
     leaveAComment.innerText = "Leave a comment."
     leaveAComment.addEventListener("click", renderCommentForm)
 
     
 
-    newPostCard.append(nameh2, locationh4, postImg, captionp, commenth4, commentSection, viewMoreh4, leaveAComment)
+    newPostCard.append(nameh2, locationh4, postImg, captionp, likeCount, likeBtn, commenth4, commentSection)
+
+    if(post.comments.length > 3){
+        const viewMoreh4 = document.createElement("h4")
+        viewMoreh4.className = "middle-view-more"
+        viewMoreh4.innerText = "VIEW MORE"
+        newPostCard.append(viewMoreh4, leaveAComment)
+        }
+        else {
+            newPostCard.append(leaveAComment)
+        }
+        
+
 
     //NOTE need to switch this to append to beginning rather than end. Should be .unshift
     divPostImage.prepend(newPostCard)
@@ -247,6 +338,46 @@ function renderPosts(post) {
       // end of comment iteration 
 
 }
+
+function likeFunction(event) {
+    console.log("likeFunction has been hit")
+    
+    event.preventDefault()
+    let more = parseInt(event.target.previousElementSibling.id)+1
+    console.log(more)
+
+ 
+
+    fetch(urlLikes, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({
+            user_id: parseInt(localStorage.user_id),
+            post_id: parseInt(event.target.id)
+        })
+    })
+    .then(res => res.json())
+    .then((like_obj => {
+        event.target.previousElementSibling.innerText = `${more} likes`;
+    }))
+
+}
+
+function renderLoadMoreButton(){
+    let loadMoreSection = document.querySelector(".load-more")
+
+    let loadMoreBtn = document.createElement("button")
+    loadMoreBtn.className ="ui button"
+    loadMoreBtn.id="load-more-button"
+    loadMoreBtn.innerText="LOAD MORE"
+    
+    loadMoreSection.append(loadMoreBtn)
+
+}
+
 
 function timeSince(date) {
     
@@ -281,6 +412,19 @@ function iterateComments(comment){
     let comments = document.querySelector(".comments-"+ `${comment.post_id}`)
     let newCmt = document.createElement("div")
     newCmt.id = comment.id 
+    newCmt.className= "single-comment-div"
+
+    let usernameDiv = document.createElement("div")
+    usernameDiv.className="username-comment-node"
+    
+    // fetch user info from comments
+    fetch(`${urlComments}/${comment.id}`)
+    .then(res => res.json())
+    .then( (comment_obj) => {
+        usernameDiv.innerText = `@${comment_obj.user.username}`;
+        newCmt.prepend(usernameDiv);
+    })
+
     var t = comment.created_at.split(/[- : T]/);
     t[5] = t[5].split(".")[0]
     var d = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4], t[5]));
@@ -312,8 +456,9 @@ function renderCommentForm(event){
         let cmtText = document.createElement("input")
         cmtText.id = `comment-text-input-${currentPostCard.id}`
         cmtText.type = "text-area"
+        cmtText.required = true
         cmtText.placeholder = "Write your comment here...."
-        // document.getElementById("comment-text-input").required = true;
+        // document.getElementById("comment-text-input").setAttribute("required", "")
 
 
         let commentSubmit = document.createElement("input")
@@ -390,7 +535,8 @@ function createPost(event){
         user: {
             username: localStorage.username 
         },
-        comments: []
+        comments: [],
+        likes: []
     }
     fetch(urlPosts, {
         method: "POST",
@@ -399,7 +545,6 @@ function createPost(event){
           },
         body: JSON.stringify(data)
     }).then( () => renderPosts(data))
-
 
     
 }
@@ -419,17 +564,60 @@ function editPost() {
 
 }
 
+
 function fetchUserForExplore() {
-    fetch(`${urlUsers}/?_limit=3`)
+
+    let exploreSection = document.querySelector(".explore")
+    let exploreH2 = document.createElement("h2")
+    exploreH2.innerText= "Explore"
+    exploreSection.prepend(exploreH2)
+
+    var followers = []
+    var follows = []
+    fetch(`http://localhost:3000/followers/${localStorage.id}`)
     .then(resp => resp.json())
-    .then(users => users.forEach(user => {
-        // debugger
-        exploreUsers(user)
-    }))
+    .then(users => {
+        
+        followers = users.map(user => {return user.username})
+        
+        // users.forEach(user => {
+        //     followers.push(user.username)
+        // })
+    })
+    
+
+    fetch(`http://localhost:3000/follows/${localStorage.id}`)
+    .then(resp => resp.json())
+    .then(users => {
+        users.forEach(user => follows.push(user.username))
+    })
+    
+    fetch("http://localhost:3000/people")
+    .then(resp => resp.json())
+    .then(users => {
+        var changed = users.filter(user => {
+            return !(followers.includes(user.username) || follows.includes(user.username))
+        
+        })
+        
+        const shuffled = changed.sort(() => 0.5 - Math.random());
+        
+        // let selected = shuffled.slice(0, 6);
+        shuffled.forEach(user => {
+            exploreUsers(user) })
+        }  
+    )
+    
+
 }
 
+
 var exploreArray = []
+
 function exploreUsers(user){
+
+
+    
     // let followers = JSON.parse(localStorage.followers)
     // let followedMap = JSON.parse(localStorage["followed"]).map(follow => follow.follow_id)
 
@@ -467,32 +655,109 @@ function fetchSupportOrg(){
     .then(resp => resp.json())
     .then(orgs => {
         var randomValue = orgs[Math.floor(Math.random() * orgs.length)];
-        renderSupportOrgX(randomValue)
+        renderSupportOrg(randomValue)
     }
     )
 }
 
-function renderSupportOrgX(org){
+function renderSupportOrg(org){
 
     //renders the support org details to the right side of page
     //includes image, org name, website, and description
     let supportSection = document.querySelector(".support")
 
+    let supportHeader =document.createElement("h2")
+    supportHeader.innerText = "Support"
+
+    //begin image with link
+    let imgLink = document.createElement("a")
+    imgLink.href= org.website
+    imgLink.target= "_blank"
+    
     let supportImage = document.createElement("img")
     supportImage.src = org.image
     supportImage.className = "support-image"
 
+    imgLink.append(supportImage)
+    
+    //end img with link
+
     let supportTitle = document.createElement("h4")
     supportTitle.innerText = org.name 
+
+
+    ///begin website url link
+    let imgLink2 = document.createElement("a")
+    imgLink2.href= org.website
+    imgLink2.target= "_blank"
+
     let webLink = document.createElement("div")
     webLink.className = "support-description"
     webLink.innerText = org.website 
+
+    imgLink2.append(webLink)
+    //end website URL link
   
     let orgDescription = document.createElement("div")
     orgDescription.innerText = org.description
 
-    supportSection.append(supportImage, supportTitle, webLink, orgDescription)
+    supportSection.append(supportHeader, imgLink, supportTitle, imgLink2, orgDescription)
 
 
    
+}
+
+
+//this NextPage function was for loading additional posts but previous fitler isn't working yet
+function nextPage(){
+    console.log("load more has been clicked")
+    ++posts_page;
+    fetchPosts();
+}
+
+
+function renderNewPostForm(){
+
+    let newPostNode = document.querySelector("#create-posts")
+    
+    let newPostH2 = document.createElement("h2")
+    newPostH2.innerText="Create a New Post"
+    
+    let newPostForm =document.createElement("form")
+    newPostForm.className="create-post-form"
+    newPostForm.id="create-post-form"
+
+    let locationInput = document.createElement("input")
+    locationInput.required = true
+    locationInput.type = "text"
+    locationInput.placeholder= "Location (optional)..."
+    locationInput.attributes.required = ""
+    locationInput.id = "location-input"
+
+    let imageInput = document.createElement("input")
+    imageInput.required = true
+    imageInput.type= "text"
+    imageInput.placeholder="Img URL..."
+    imageInput.attributes.required = ""
+    imageInput.id = "image-url"
+
+    let captionInput = document.createElement("input")
+    captionInput.required = true
+    captionInput.type = "text"
+    captionInput.placeholder = "Write a fun caption here..."
+    captionInput.attributes.required = ""
+    captionInput.id = "caption-input"
+
+    
+    let submitButton = document.createElement("input")
+    submitButton.className ="ui button"
+    submitButton.type="submit"
+    
+
+    newPostForm.append(locationInput, imageInput, captionInput, submitButton)
+   
+
+    newPostNode.append(newPostH2, newPostForm)
+
+
 }

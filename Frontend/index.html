@@ -8,62 +8,21 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
   </head>
+  <!-- Login InFormation-->
+
   <body>
-    <header>
-    
-      <div class="header head-bar">
-        <div class="row">
-        <div class="col-md-9">
-          <h2>AnimalGram</h2>
-        </div>
-        <div class="col-md-3">
-          <div id="login-header"></div>
-        </div>
-      </div>
 
-    </div>
-
-    </header>
-
-    <main>
-
-      <!-- LOGIN  form  -->
-<!-- <div class="login-form">
-  <form class="login-user-form">
-    <h3>Login</h3>
-    <input id="username-input" type="text" placeholder="Username">
-    <br>
-    <input class="ui button" type="submit">
-  </form>
-</div> -->
-
-
-
-
-
-      <!-- new user form  -->
-      <!-- <div class="user-form">
-        <form class="create-user-form">
-          <h3>Create New User</h3>
-          <input id="username-input" type="text" placeholder="Username">
-          <input id="fullname-input" type="text" placeholder="Full Name">
-          <input id="bio-input" type="text"placeholder="Bio">
-          <br>
-          <input class="ui button" type="submit">
-        </form>
-      </div> -->
-
-      
-      <!-- main   page -->
-
-      <!-- LOGIN FORM -->
-
-<div class="row" id="logged-out-home">
-  <div class="col-md-4"></div>
-  <div class="col-md-4">
-
-
-    <button id="login-button" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+    <div class="wrapper">
+        <nav>
+          <div class="logo">Animal Gram</div>
+          <ul class="nav-bar-list">
+            <li><a class="home-page" href="#" onclick="return homePage();">Home</a></li>
+            <li><a class="about-page" href="#" onclick="return aboutPage()">About</a></li>
+            <!-- <li><a onclick="return loginNavOpen()">Login</a></li> -->
+          </ul>
+         </nav>
+  </div>
+   <!-- <button id="login-button" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button> -->
 
     <div id="id01" class="modal">
       
@@ -92,41 +51,74 @@
         </div> -->
       </form>
     </div>
-    
-  </div>
+    <!--                        Above is for Login                       -->
+
+    <!-- About Page -->
+
+    <div class="about">
+      </br>
+      </br>
+      </br>
+    </div>
+
+    <!---->
+
+  <!-- </div>
   <div class="col-md-4"></div>
-  </div>
+  </div> -->
 
 
+    <!-- <header>
+    
+      <div class="header head-bar">
+        <div class="row">
+            <div class="col-md-9"> -->
+              <!-- <h2>AnimalGram</h2> -->
+            <!-- </div>
+            <div class="col-md-3">
+              <div id="login-header"></div>
+            </div>
+      </div>
+
+    </div>
+
+    </header> -->
+
+    <main>
+
+      <!-- main   page -->
+
+      <!-- LOGIN FORM -->
+
+<div class="row" id="logged-out-home">
+  <div class="col-md-4"></div>
+  <div class="col-md-4"></div>
+  <div class="col-md-4"></div>
+</div>
 
 
 <!-- LEFT COLUMN  -->
 
 <div class="row" id="logged-in-home">
 <div class="col-md-4">
-      <div class="left">
+      <div class="left no-scroll">
         <div class="user-info"> 
-          <h2 class="username" >User Name</h2>
-          <h4 class="fullname" >Full Name</h4>
-          <p class="bio" >User Bio</p>
+          <!-- User Info Goes Here!-->
         </div>
         <!-- Users Follower and Following Count-->
         <div class="follower-following-count">
 
         </div>
-      </div>
-      <div class="users-posts"> 
+        <div class="users-posts"> 
             <!--Users Post Pictues Will Get displayed within this Div.  Will style After functions work-->
-      </div> 
+        </div> 
+        </br>
       </br>
       </br>
       <div class="image-expanded"> 
       <!-- Expanded Images Go Here-->
       </div>
-
-      
-
-
+      </div>
 </div>
 
 
@@ -134,21 +126,14 @@
 
 <div class="col-md-4">
       <div class="middle"> 
-      <div class="post-form" id= "create-posts">
-        <form class="create-post-form" id="create-post-form" >
-          <h3>Create a new Post</h3>
-          <input id="location-input" type="text" placeholder="Location (optional)..." required>
-          <br>
-          <input id="image-url" type="text" placeholder="Image..." required>
-          <br>
-          <input id="caption-input" type="textarea" placeholder="Caption..." required>
-          <br>
-          <input class="ui button" type="submit">
-        </form>
-      <!-- Images that are Posted below the Username on the left side of the screen-->
-      </div>
+        <div class="post-form" id="create-posts">
+          <!--create new post form here -->
+        </div>
         <div class="post-image">
-        <!-- User Image Posts Go Here-->
+        <!-- All Posts Go Here-->
+        </div>
+        <div class="load-more">
+          <!-- this is the button to load more posts, -->
         </div>
       </div>
       <!-- Images that when clicked on are rendered to the bottom left side -->
@@ -159,9 +144,10 @@
 
 
   <div class="col-md-4">
-      <div class="right">
+      <div class="right no-scroll">
         <div class="explore">
-          <h2>Explore</h2>
+         <!-- explore header goes here -->
+         <!-- Explore Users goes Here -->
             <div class="explore-users">
               <ul class="list-of-users">
               <!-- User Explore Information-->
@@ -169,7 +155,7 @@
             </div>
         </div>
         <div class="support">
-          <h2>Support</h2>
+          
         </div>
       </div>
   </div>
@@ -186,6 +172,16 @@
 
     <script src="./src/login.js"></script>
     <script src="./src/index.js"></script>
+    <!-- <script type="text/javascript">
+      $(window).on('scroll', function(){
+        if($(window).scrollTop()){
+          $('nav').addClass('black');
+        }
+        else {
+          $('nav').removeClass('black');
+        }
+      })
+      </script> {% endcomment %} -->
 </body>
 
 </html>
