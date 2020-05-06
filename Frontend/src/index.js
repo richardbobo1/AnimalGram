@@ -673,6 +673,9 @@ function createPost(event){
         body: JSON.stringify(data)
     }).then( () => renderPosts(data))
 
+    let xForm = document.querySelector(".create-post-form")
+
+    xForm.reset()
     
 }
 
@@ -813,6 +816,7 @@ function renderSupportOrg(org){
     let supportSection = document.querySelector(".support")
 
     let supportHeader =document.createElement("h2")
+    supportHeader.className="support-header-h2"
     supportHeader.innerText = "Support"
 
     //begin image with link

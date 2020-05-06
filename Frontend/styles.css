@@ -52,7 +52,7 @@ body {
 }
 
 .support-image {
-    width:  325px;
+    width:  100%
 }
 
 .support-org-title{
@@ -430,4 +430,9 @@ span.psw {
   border-top-style: solid;
   padding-top: 3px;
   padding-bottom: 3px;
+}
+
+.support-header-h2 {
+  margin-top: 50px;
+  margin-bottom: 20px;
 }
