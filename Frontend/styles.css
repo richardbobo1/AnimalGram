@@ -10,6 +10,7 @@
     width:  100px;
     height: 100px;
     padding: 5px;
+    
     /* background-size: cover; */
 } 
 
@@ -21,7 +22,7 @@
 }
 
 .one-post-card {
-    width: 320px;
+    width:400px;
     box-sizing:border-box;
     border: 2px solid rgb(65, 64, 64);
     /* border: 2px solid #73AD21; */
@@ -29,7 +30,7 @@
     margin-top: 10px;
     margin-bottom: 10px;
     background-color: white;
-    border-radius: 25px;
+    border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     /* position: fixed;
     top: 50%;
@@ -54,6 +55,9 @@ body {
     width:  325px;
 }
 
+.support-org-title{
+  margin-right: 10px;
+}
 .support-description {
     font-style: italic;
 }
@@ -61,7 +65,7 @@ body {
 /* Image Div Making Bigger */
 .image-expanded {
   width: 400px;
-  height: 200px;
+  height: 300px;
   overflow: hidden;
 }
 
@@ -297,8 +301,8 @@ span.psw {
   padding-right: 10px;
   padding-top: 4px;
   padding-bottom: 4px;
-  border-top-style: solid;
-  border-top-color: grey;
+  border-bottom-style: groove;
+  /* border-top-color: grey; */
 }
 
 .middle-username{
@@ -309,14 +313,15 @@ span.psw {
   padding-left: 10px;
   padding-right: 10px;
 }
-.like-count{
-  display: flex;
-  align-self: center;
-}
+
 
 .about-information {
   font-size: 25px;
   padding-left: 50px;
+}
+
+.welcome-page {
+  text-align: center;
 }
 
 #leave-a-comment{
@@ -328,14 +333,101 @@ span.psw {
 }
 
 .support-description{
-  padding-right: 10px;
+  margin-right: 10px;
 }
 
 .list-of-users {
   padding-right: 10px;
+  font-size: 19px;
 }
-/* .btn btn-primary{
-  padding-left: 10px;
+
+.btn.btn-primary{
+  width: 100px;
+  float: right;
+  vertical-align: text-top ;
+  padding-bottom: 5px;
+  /* margin-top: 5px; */
+  margin-right: 10px;
+  /* padding-left: 10px;
   padding-right: 10px;
+  margin-right: 5px; */
+}
+
+.btn.btn-default.delete{
+  width: 75px;
+  float: right;
+  vertical-align: text-top ;
+  padding-bottom: 5px;
   margin-right: 5px;
-} */
+  margin-bottom: 10px;
+  /* padding-left: 10px;
+  padding-right: 10px;
+  margin-right: 5px; */
+}
+
+.btn-danger{
+  width: 75px;
+  float: right;
+  margin-right: 10px;
+
+}
+
+.like-count{
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-bottom: 5px;
+  padding-bottom:10px;
+  font-size: 15px;
+
+  
+  /* border-top:  */
+}
+
+
+.user-list-item{
+  margin-bottom: 10px;
+}
+
+#create-posts.post-form {
+  width: 400px;
+  margin-bottom: 20px;
+
+
+}
+
+.col-md-4{
+  width: 400px;
+}
+
+.right.no-scroll {
+  margin-right:20px;
+}
+
+.btn.btn-outline-secondary{
+  margin-bottom: 15px;
+  width: 175px;
+  float: right;
+  vertical-align: text-top ;
+}
+
+.post-description-p{
+  margin-top:10px;
+  margin-left:10px;
+  margin-right:10px;
+  margin-bottom: 20px;
+  /* border-bottom-style: solid;
+  border-bottom-color: grey; */
+}
+
+.leave-a-comment{
+  text-align: center;
+  border-bottom-style: groove;
+
+}
+
+.middle-comment{
+  border-bottom-style: groove;
+  border-top-style: solid;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}

@@ -14,7 +14,7 @@
 
     <div class="wrapper">
         <nav>
-          <div class="logo">Animal Gram</div>
+          <div class="logo"><img src="layout/animalGramLogo.png" width="60px"> AnimalGram</div>
           <ul class="nav-bar-list">
             <li><a class="home-page" href="#" onclick="return homePage();">Home</a></li>
             <li><a class="about-page" href="#" onclick="return aboutPage()">About</a></li>
@@ -39,7 +39,7 @@
           <!-- <label for="psw"><b>Password</b></label>
           <input type="password" placeholder="Enter Password" name="psw" required> -->
             
-          <button id="submit-user" type="submit">Login</button>
+          <button id="submit-user" type="submit" onclick="return loggingIn()">Login</button>
           <!-- <label>
             <input type="checkbox" checked="checked" name="remember"> Remember me
           </label> -->
@@ -62,6 +62,14 @@
         </br>
       </br>
       </br>
+        <div class="about-information">
+        </div>
+    </div> 
+
+    <div class="row">
+     <div class="welcome">
+        <div class="welcome-page">
+        </div>
         <div class="about-information">
         </div>
     </div> 
@@ -97,11 +105,11 @@
 
       <!-- LOGIN FORM -->
 
-<div class="row" id="logged-out-home">
+<!-- <div class="row" id="logged-out-home">
   <div class="col-md-4"></div>
   <div class="col-md-4"></div>
   <div class="col-md-4"></div>
-</div>
+</div> -->
 
 
 <!-- LEFT COLUMN  -->
@@ -119,9 +127,7 @@
         <div class="users-posts"> 
             <!--Users Post Pictues Will Get displayed within this Div.  Will style After functions work-->
         </div> 
-        </br>
-      </br>
-      </br>
+        <br>
       <div class="image-expanded"> 
       <!-- Expanded Images Go Here-->
       </div>
