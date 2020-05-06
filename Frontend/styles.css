@@ -15,6 +15,7 @@
 
 .row {
   padding: 20px;
+  padding-right: 10px;
     /* float: center; */
     /* width: 100%; */
 }
@@ -22,12 +23,14 @@
 .one-post-card {
     width: 320px;
     box-sizing:border-box;
-    border: 2px solid #73AD21;
-    padding: 10px;
+    border: 2px solid rgb(65, 64, 64);
+    /* border: 2px solid #73AD21; */
+    /* padding: 10px; */
     margin-top: 10px;
     margin-bottom: 10px;
     background-color: white;
     border-radius: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     /* position: fixed;
     top: 50%;
     left: 50%;
@@ -36,7 +39,8 @@
 }
 
 .middle-photo {
-    width:  300px;
+    /* width:  300px; */
+    width: 100%;
 }
 
 body {
@@ -289,6 +293,49 @@ span.psw {
 }
 
 .single-comment-div{
-  border-bottom-style: solid;
-  border-bottom-color: grey;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-top-style: solid;
+  border-top-color: grey;
 }
+
+.middle-username{
+  padding-left: 10px;
+}
+
+.middle-location{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.like-count{
+  display: flex;
+  align-self: center;
+}
+
+.about-information {
+  font-size: 25px;
+  padding-left: 50px;
+}
+
+#leave-a-comment{
+  padding-left: 10px;
+  padding-bottom: 5px;
+  width: 100%;
+  border-top-style: solid;
+  border-top-color: grey;
+}
+
+.support-description{
+  padding-right: 10px;
+}
+
+.list-of-users {
+  padding-right: 10px;
+}
+/* .btn btn-primary{
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-right: 5px;
+} */
